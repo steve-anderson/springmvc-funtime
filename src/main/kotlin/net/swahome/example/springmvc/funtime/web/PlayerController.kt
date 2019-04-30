@@ -18,7 +18,7 @@ import javax.inject.Inject
 open class PlayerController @Inject constructor (private val playerService: PlayerService) {
 
     @RequestMapping(path = ["/{id}"], method = [RequestMethod.GET])
-    fun getPLayerById(@PathVariable id: Long, model: Model): String {
+    fun getPlayerById(@PathVariable id: Long, model: Model): String {
         val found = playerService.find(id)
         model.addAttribute("found", found != null)
         model.addAttribute("player", found)

@@ -20,7 +20,7 @@ open class PlayerService @Inject constructor (private val dao: PlayerDao) {
     @PostConstruct
     fun init() {
         logger.debug { "Write initial players." }
-        dao.write(Player(null, "tom@example.com", "Tom", null, "Smith"))
+        dao.write(Player(null, "tom@example.com", "Tom", "<script />", "Smith"))
         dao.write(Player(null, "joe@example.com", "Joe", null, "Green"))
         dao.write(Player(null, "mickey@example.com", "Mickey", "M", "Mouse"))
     }
@@ -35,7 +35,7 @@ open class PlayerService @Inject constructor (private val dao: PlayerDao) {
     }
 
     fun list(): List<Player> {
-        return dao.readAll()
+        return dao.readAll().sortedBy { it.lastName }
     }
 
     private fun validate(player: Player) {

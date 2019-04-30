@@ -48,14 +48,30 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+val webContext = "funtime"
 tasks.withType<War> {
-    archiveFileName.set("funtime.war")
+    archiveFileName.set("$webContext.war")
 }
 
-val explodedWar by tasks.registering(Copy::class) {
-    dependsOn(tasks.named("war"))
+val explodedWar by tasks.creating {
+    dependsOn(tasks.named("compileKotlin"))
 
-    into("$buildDir/libs/exploded/funtime.war")
-    from(zipTree("$buildDir/libs/funtime.war"))
+    doLast {
+        val warDir = "$buildDir/libs/exploded/$webContext.war"
+
+        copy {
+            into(warDir)
+            from("$projectDir/src/main/webapp")
+        }
+
+        copy {
+            into("$warDir/WEB-INF/classes")
+            from(sourceSets["main"].output)
+        }
+
+        copy {
+            into("$warDir/WEB-INF/lib")
+            from(configurations["runtimeClasspath"])
+        }
+    }
 }
-
