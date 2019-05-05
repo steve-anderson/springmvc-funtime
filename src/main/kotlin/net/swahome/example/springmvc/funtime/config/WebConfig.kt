@@ -15,7 +15,7 @@ import org.springframework.web.servlet.view.JstlView
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = ["net.swahome.example.springmvc.funtime.web"])
+@ComponentScan(basePackages = ["net.swahome.example.springmvc.funtime.web", "net.swahome.example.springmvc.funtime.rest"])
 open class WebConfig {
     @Bean
     open fun viewResolver(): ViewResolver {
