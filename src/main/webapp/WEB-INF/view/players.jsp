@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Fun Time</title>
+    <link href="<c:url value="/resources/main.css" />" rel="stylesheet" />
 </head>
 <body>
 <h1>Players</h1>

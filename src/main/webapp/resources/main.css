@@ -1,0 +1,23 @@
+table {
+    min-width: 100%;
+}
+
+table thead {
+    font-weight: bold;
+}
+
+.card {
+    display: block;
+    box-shadow: 10px 10px 8px #888888;
+    border-color: black;
+    margin: 10pt;
+    background: aliceblue;
+    padding-left: 10pt;
+    padding-top: 3pt;
+    padding-bottom: 3pt;
+}
+
+.label {
+    font-weight: bold;
+    display: inline;
+}

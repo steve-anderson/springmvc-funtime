@@ -11,23 +11,28 @@
 <html>
 <head>
     <title>Fun Time</title>
+    <link href="<c:url value="/resources/main.css" />" rel="stylesheet" />
 </head>
 <body>
 <h1>Player</h1>
 <a href="list">Player List</a>
 
 <c:if test="${found}">
-    <p>Email: <c:out value="${player.email}" /></p>
-    <p>First name: <c:out value="${player.firstName}" /></p>
-    <p>Middle name: <c:out value="${player.middleName}" /></p>
-    <p>Last name: <c:out value="${player.lastName}" /></p>
+    <div class="card">
+        <p><div class="label">Email: </div><c:out value="${player.email}" /></p>
+        <p><div class="label">First name: </div><c:out value="${player.firstName}" /></p>
+        <p><div class="label">Middle name: </div><c:out value="${player.middleName}" /></p>
+        <p><div class="label">Last name: </div><c:out value="${player.lastName}" /></p>
+    </div>
     <form:form method="post" action="../game/list" modelAttribute="playerRequest">
         <input id="id" name="id" type="hidden" value="${player.id}" />
         <input name="Games" type="submit" value="Games" />
     </form:form>
 </c:if>
 <c:if test="${!found}">
-    <p>Player not found.</p>
+    <div class="card">
+        <p>Player not found.</p>
+    </div>
 </c:if>
 </body>
 </html>

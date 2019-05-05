@@ -10,13 +10,19 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.ViewResolver
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver
 import org.springframework.web.servlet.view.JstlView
 
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = ["net.swahome.example.springmvc.funtime.web", "net.swahome.example.springmvc.funtime.rest"])
-open class WebConfig {
+open class WebConfig: WebMvcConfigurerAdapter() {
+    override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/")
+    }
+
     @Bean
     open fun viewResolver(): ViewResolver {
         val bean = InternalResourceViewResolver()

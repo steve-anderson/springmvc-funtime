@@ -10,16 +10,19 @@
 <html>
 <head>
     <title>Fun Time</title>
+    <link href="<c:url value="/resources/main.css" />" rel="stylesheet" />
 </head>
 <body>
 <h1>Games for Player</h1>
 <a href="../player/list">Player List</a>
 
 <c:if test="${found}">
-<p>Email: <a href="../player/${player.id}"><c:out value="${player.email}" /></a></p>
-<p>First name: <c:out value="${player.firstName}" /></p>
-<p>Middle name: <c:out value="${player.middleName}" /></p>
-<p>Last name: <c:out value="${player.lastName}" /></p>
+<div class="card">
+    <p><div class="label">Email: </div><a href="../player/${player.id}"><c:out value="${player.email}" /></a></p>
+    <p><div class="label">First name: </div><c:out value="${player.firstName}" /></p>
+    <p><div class="label">Middle name: </div><c:out value="${player.middleName}" /></p>
+    <p><div class="label">Last name: </div><c:out value="${player.lastName}" /></p>
+</div>
 
 <table>
     <thead>
