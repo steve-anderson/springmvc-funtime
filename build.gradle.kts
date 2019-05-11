@@ -15,6 +15,7 @@ repositories {
 }
 
 val springVersion = "4.3.23.RELEASE"
+val springFoxVersion = "2.9.2"
 val kotlinLoggingVersion = "1.6.26"
 val log4j2Version = "2.11.2"
 val slf4jVersion = "1.7.26"
@@ -22,6 +23,8 @@ val slf4jVersion = "1.7.26"
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.springframework", "spring-webmvc", springVersion)
+    implementation("io.springfox", "springfox-swagger2", springFoxVersion)
+    implementation("io.springfox", "springfox-swagger-ui", springFoxVersion)
     implementation("io.github.microutils", "kotlin-logging", kotlinLoggingVersion)
     implementation("org.slf4j", "jcl-over-slf4j", slf4jVersion)
 
@@ -48,16 +51,11 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-val webContext = "funtime"
-tasks.withType<War> {
-    archiveFileName.set("$webContext.war")
-}
-
 val explodedWar by tasks.creating {
     dependsOn(tasks.named("compileKotlin"))
 
     doLast {
-        val warDir = "$buildDir/libs/exploded/$webContext.war"
+        val warDir = "$buildDir/libs/exploded/${project.name}-${project.version}.war"
 
         copy {
             into(warDir)

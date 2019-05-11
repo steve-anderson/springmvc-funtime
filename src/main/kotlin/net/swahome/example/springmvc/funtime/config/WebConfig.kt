@@ -14,13 +14,27 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver
 import org.springframework.web.servlet.view.JstlView
+import springfox.documentation.swagger2.annotations.EnableSwagger2
+import springfox.documentation.builders.PathSelectors
+import springfox.documentation.builders.RequestHandlerSelectors
+import springfox.documentation.spi.DocumentationType
+import springfox.documentation.spring.web.plugins.Docket
+
+
 
 @EnableWebMvc
+@EnableSwagger2
 @Configuration
 @ComponentScan(basePackages = ["net.swahome.example.springmvc.funtime.web", "net.swahome.example.springmvc.funtime.rest"])
 open class WebConfig: WebMvcConfigurerAdapter() {
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/")
+
+        registry.addResourceHandler("swagger-ui.html")
+            .addResourceLocations("classpath:/META-INF/resources/")
+
+        registry.addResourceHandler("/webjars/**")
+            .addResourceLocations("classpath:/META-INF/resources/webjars/")
     }
 
     @Bean
@@ -33,4 +47,14 @@ open class WebConfig: WebMvcConfigurerAdapter() {
 
         return bean
     }
+
+    @Bean
+    open fun api(): Docket {
+        return Docket(DocumentationType.SWAGGER_2)
+            .select()
+            .apis(RequestHandlerSelectors.any())
+            .paths(PathSelectors.any())
+            .build()
+    }
+
 }
